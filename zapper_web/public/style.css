@@ -1,0 +1,79 @@
+body,
+html {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #2b2b2b;
+}
+
+* {
+  /*border: 1px solid black;*/
+  box-sizing: border-box;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+#container {
+  width: 90%;
+  max-width: 1600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#container h1 {
+  width: 100%;
+  margin: 30px 0;
+}
+
+#map {
+  /*background: url(https://api.fnkr.net/testimg/1280x750/00CED1/FFF/?text=map) no-repeat center;*/
+  width: calc(75% - 40px);
+  height: 80vh;
+  border-radius: 5px;
+  overflow: hidden;
+  z-index: 0;
+  box-shadow: -5px 5px 16px 1px rgba(0, 0, 0, 0.57);
+}
+
+#list {
+  width: 25%;
+  height: 80vh;
+  padding: 0 20px;
+  margin-left: 20px;
+}
+
+#list h2 {
+  margin-top: 0;
+  padding-left: 0;
+  margin-bottom: 8px;
+}
+
+#list ol {
+  height: calc(100% - 60px);
+  overflow: scroll;
+  margin: 0;
+  padding: 0;
+}
+
+#list li {
+	list-style: none;
+	/*border: 1px solid white;*/
+	border-radius: 5px;
+	background: rgba(255, 255, 255, 0.5);
+	padding: 8px 12px;
+	margin: 12px 0;
+}
+
+@media only screen and (max-width: 960px) {
+  #list {
+    width: 100%;
+  }
+  #list h2 {
+    margin-top: 50px;
+  }
+  #map {
+    width: 100%;
+  }
+}

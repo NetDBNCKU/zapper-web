@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<head>
+  <title>zapper-map</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+   <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+</head>
+
+<body>
+  <div id="container">
+    <h1>誘捕桶地圖</h1>
+    <div id="map"></div>
+    <div id="list">
+      <h2>事件</h2>
+      <ol >
+        <li style="background-color: #BD3F32">(1, 19 ,24), 230 times</li>
+        <li style="background-color: rgba(203, 87, 75, 0.85)">(1, 19 ,24), 230 times</li>
+        <li style="background-color: rgba(203, 87, 75, 0.7)">(1, 19 ,24), 230 times</li>
+        <li style="background-color: rgba(203, 87, 75, 0.55)">(1, 19 ,24), 230 times</li>
+        <li style="background-color: rgba(203, 87, 75, 0.4)">(1, 19 ,24), 230 times</li>
+        <li style="background-color: rgba(203, 87, 75, 0.25)">(1, 19 ,24), 230 times</li>
+        <li style="background-color: #BD3F32">(1, 19 ,24), 230 times</li>
+        <li style="background-color: rgba(203, 87, 75, 0.85)">(1, 19 ,24), 230 times</li>
+        <li style="background-color: rgba(203, 87, 75, 0.7)">(1, 19 ,24), 230 times</li>
+        <li style="background-color: rgba(203, 87, 75, 0.55)">(1, 19 ,24), 230 times</li>
+        <li style="background-color: rgba(203, 87, 75, 0.4)">(1, 19 ,24), 230 times</li>
+        <li style="background-color: rgba(203, 87, 75, 0.25)">(1, 19 ,24), 230 times</li>
+      </ol>
+    </div>
+  </div>
+</body>
+<script>
+var mymap = L.map('map').setView([51.505, -0.09], 13);
+// light theme
+// 	L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY2hpbmc1NiIsImEiOiJjaXNiZmYydGMwMTN1MnpwbnNqNWVqM2plIn0.k7h-PUGX7Tl5xLwDH3Qpsg', {
+//     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+//     maxZoom: 18,
+//     id: 'your.mapbox.project.id',
+// }).addTo(mymap);
+
+		L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY2hpbmc1NiIsImEiOiJjaXNiZmYydGMwMTN1MnpwbnNqNWVqM2plIn0.k7h-PUGX7Tl5xLwDH3Qpsg', {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    maxZoom: 18,
+    id: 'your.mapbox.project.id',
+}).addTo(mymap);
+
+	
+</script>
+</html>
