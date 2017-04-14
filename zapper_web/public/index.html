@@ -5,16 +5,14 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" type="text/css" href="style.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@0.7.7/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@0.7.7/dist/leaflet.js"></script>
+  <script src="https://d3js.org/d3.v3.min.js"></script>
 </head>
 
 <body>
   <div id="container">
-    <h1>誘捕桶地圖</h1>
+    <h1>即時物聯網蚊媒地圖</h1>
     <div id="map"></div>
     <div id="list">
       <h2>事件</h2>
@@ -60,8 +58,8 @@
   }).addTo(map);
         
   /* Initialize the SVG layer */
-  //mymap._initPathRoot(); 
-  L.svg().addTo(map);
+  map._initPathRoot(); 
+  //L.svg().addTo(map);
   /* We simply pick up the SVG from the map object */
   var svg = d3.select("#map").select("svg");
   g = svg.append("g");
