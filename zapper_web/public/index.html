@@ -64,7 +64,7 @@
   var svg = d3.select("#map").select("svg");
   g = svg.append("g");
 
-  d3.json("data.json", function(collection) {
+  d3.json("zapper_data.json", function(collection) {
     collection.forEach(function(d) {
       d.LatLng = new L.LatLng(d.lng, d.lat)
 
@@ -146,6 +146,55 @@
           .attr("r", function(d){return Math.floor((Math.random() * 20) + 1)})
           .ease('sine'); 
       }, 3000);
+    }
+
+  });
+
+  var svg2 = d3.select(map.getPanes().overlayPane).append("svg"),
+  g2 = svg2.append("g").attr("class", "leaflet-zoom-hide");
+   
+  d3.json("trend_data.json", function(collection) {
+    
+    //  create a d3.geo.path to convert GeoJSON to SVG
+    var transform = d3.geo.transform({point: projectPoint}),
+              path = d3.geo.path().projection(transform);
+   
+    // create path elements for each of the features
+    d3_features = g2.selectAll("path")
+     .data(collection.features)
+     .enter().append("path");
+
+    map.on("viewreset", reset);
+
+    reset();
+
+    // fit the SVG element to leaflet's map layer
+    function reset() {
+          
+     bounds = path.bounds(collection);
+
+     var topLeft = bounds[0],
+      bottomRight = bounds[1];
+
+     svg2.attr("width", bottomRight[0] - topLeft[0])
+      .attr("height", bottomRight[1] - topLeft[1])
+      .style("left", topLeft[0] + "px")
+      .style("top", topLeft[1] + "px");
+
+     g2.attr("transform", "translate(" + -topLeft[0] + "," 
+                                       + -topLeft[1] + ")");
+
+     // initialize the path data 
+     d3_features.attr("d", path)
+      .style("stroke", "red")
+      .attr("stroke-width", 10)
+      .attr('fill','none');
+    } 
+
+    // Use Leaflet to implement a D3 geometric transformation.
+    function projectPoint(x, y) {
+     var point = map.latLngToLayerPoint(new L.LatLng(y, x));
+     this.stream.point(point.x, point.y);
     }
 
   });
