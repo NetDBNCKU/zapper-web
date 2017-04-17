@@ -1,6 +1,10 @@
   var map = L.map('map').setView([22.969919,120.210703], 13);
   mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
 
+  var EVENT_COLOR_HEX = ['#BD3F32','rgba(203, 87, 75, 0.85)','rgba(203, 87, 75, 0.7)',
+                         'rgba(203, 87, 75, 0.55)','rgba(203, 87, 75, 0.4)','rgba(203, 87, 75, 0.25)'];
+  var currentEventNum = 0;
+  var MAX_EVENT_NUM = 50;
   L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
       maxZoom: 18,
@@ -106,6 +110,33 @@
    
   d3.json("trend_data.json", function(collection) {
     
+    var idCounter = 1;
+    var eventIndex = 0;
+    var fakeTimes = [];
+    for(var i = 0;i < collection.features.length;i++)
+        fakeTimes.push(Math.floor(Math.random() * 200));
+
+    currentEventNum += collection.features.length;
+    if( currentEventNum > MAX_EVENT_NUM){
+      $('#list ol').empty();
+      currentEventNum = 0;
+    }
+
+    fakeTimes.sort(function(a,b) {
+        return b - a;
+    });
+
+    var events = collection.features.slice();
+    events.forEach(function(event){
+      var fakeIds = [];
+      for(var i = 0;i < 3;i++){
+        fakeIds.push('id '+idCounter);
+        idCounter++;
+      }
+      addEventListItem(fakeIds, fakeTimes[eventIndex], EVENT_COLOR_HEX[eventIndex> 5? 5:eventIndex]);
+      eventIndex++;
+    });
+
     //  create a d3.geo.path to convert GeoJSON to SVG
     var transform = d3.geo.transform({point: projectPoint}),
               path = d3.geo.path().projection(transform);
@@ -146,6 +177,11 @@
     function projectPoint(x, y) {
      var point = map.latLngToLayerPoint(new L.LatLng(y, x));
      this.stream.point(point.x, point.y);
+    }
+
+    function addEventListItem(zapperIds, times, colorHex){
+      var html = '<li style="background-color:' + colorHex + '">(' + zapperIds[0]+ ', ' + zapperIds[1]+ ' ,' + zapperIds[2]+ '), ' + times + ' times</li>';
+      $('#list ol').append(html);
     }
 
   });
