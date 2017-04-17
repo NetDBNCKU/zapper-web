@@ -103,49 +103,171 @@
 
   var svg2 = d3.select(map.getPanes().overlayPane).append("svg"),
   g2 = svg2.append("g").attr("class", "leaflet-zoom-hide");
-   
-  d3.json("trend_data.json", function(collection) {
-    
-    //  create a d3.geo.path to convert GeoJSON to SVG
-    var transform = d3.geo.transform({point: projectPoint}),
-              path = d3.geo.path().projection(transform);
-   
-    // create path elements for each of the features
-    d3_features = g2.selectAll("path")
-     .data(collection.features)
-     .enter().append("path");
+  var svg3 = d3.select(map.getPanes().overlayPane).append("svg"),
+  g3 = svg3.append("g").attr("class", "leaflet-zoom-hide");
+  var svg4 = d3.select(map.getPanes().overlayPane).append("svg"),
+  g4 = svg4.append("g").attr("class", "leaflet-zoom-hide");
+  var trend_data = ['trend_data_0.json','trend_data_1.json','trend_data_2.json'];
+  
+  repeat_trend();
+  setInterval(function()
+  {
+    svg2 = d3.select(map.getPanes().overlayPane).append("svg");
+    g2 = svg2.append("g").attr("class", "leaflet-zoom-hide");
+    svg3 = d3.select(map.getPanes().overlayPane).append("svg");
+    g3 = svg3.append("g").attr("class", "leaflet-zoom-hide");
+    svg4 = d3.select(map.getPanes().overlayPane).append("svg");
+    g4 = svg4.append("g").attr("class", "leaflet-zoom-hide");
+    repeat_trend();
+  }, 16000);
 
-    map.on("viewreset", reset);
-
-    reset();
-
-    // fit the SVG element to leaflet's map layer
-    function reset() {
+  function repeat_trend() {
+      setTimeout(function(){
+        d3.json(trend_data[0], function(collection) {
           
-     bounds = path.bounds(collection);
+          //  create a d3.geo.path to convert GeoJSON to SVG
+          var transform = d3.geo.transform({point: projectPoint}),
+                    path = d3.geo.path().projection(transform);
+         
+          // create path elements for each of the features
+          d3_features = g3.selectAll("path")
+           .data(collection.features)
+           .enter().append("path");
 
-     var topLeft = bounds[0],
-      bottomRight = bounds[1];
+          map.on("viewreset", reset);
 
-     svg2.attr("width", bottomRight[0] - topLeft[0])
-      .attr("height", bottomRight[1] - topLeft[1])
-      .style("left", topLeft[0] + "px")
-      .style("top", topLeft[1] + "px");
+          reset();
 
-     g2.attr("transform", "translate(" + -topLeft[0] + "," 
-                                       + -topLeft[1] + ")");
+          // fit the SVG element to leaflet's map layer
+          function reset() {
+                
+           bounds = path.bounds(collection);
 
-     // initialize the path data 
-     d3_features.attr("d", path)
-      .style("stroke", "red")
-      .attr("stroke-width", 10)
-      .attr('fill','none');
-    } 
+           var topLeft = bounds[0],
+            bottomRight = bounds[1];
 
-    // Use Leaflet to implement a D3 geometric transformation.
-    function projectPoint(x, y) {
-     var point = map.latLngToLayerPoint(new L.LatLng(y, x));
-     this.stream.point(point.x, point.y);
-    }
+           svg3.attr("width", bottomRight[0] - topLeft[0])
+            .attr("height", bottomRight[1] - topLeft[1])
+            .style("left", topLeft[0] + "px")
+            .style("top", topLeft[1] + "px");
 
-  });
+           g3.attr("transform", "translate(" + -topLeft[0] + "," 
+                                             + -topLeft[1] + ")");
+
+           // initialize the path data 
+           d3_features.attr("d", path)
+            .style("stroke", "red")
+            .attr("stroke-width", 3)
+            .attr('fill','none');
+          } 
+
+          // Use Leaflet to implement a D3 geometric transformation.
+          function projectPoint(x, y) {
+           var point = map.latLngToLayerPoint(new L.LatLng(y, x));
+           this.stream.point(point.x, point.y);
+          }
+        });
+      },3000);
+      setTimeout(function(){
+        d3.json(trend_data[1], function(collection) {
+          
+          //  create a d3.geo.path to convert GeoJSON to SVG
+          var transform = d3.geo.transform({point: projectPoint}),
+                    path = d3.geo.path().projection(transform);
+         
+          // create path elements for each of the features
+          d3_features = g2.selectAll("path")
+           .data(collection.features)
+           .enter().append("path");
+
+          map.on("viewreset", reset);
+
+          reset();
+
+          // fit the SVG element to leaflet's map layer
+          function reset() {
+                
+           bounds = path.bounds(collection);
+
+           var topLeft = bounds[0],
+            bottomRight = bounds[1];
+
+           svg2.attr("width", bottomRight[0] - topLeft[0])
+            .attr("height", bottomRight[1] - topLeft[1])
+            .style("left", topLeft[0] + "px")
+            .style("top", topLeft[1] + "px");
+
+           g2.attr("transform", "translate(" + -topLeft[0] + "," 
+                                             + -topLeft[1] + ")");
+
+           // initialize the path data 
+           d3_features.attr("d", path)
+            .style("stroke", "red")
+            .attr("stroke-width", 3)
+            .attr('fill','none');
+          } 
+
+          // Use Leaflet to implement a D3 geometric transformation.
+          function projectPoint(x, y) {
+           var point = map.latLngToLayerPoint(new L.LatLng(y, x));
+           this.stream.point(point.x, point.y);
+          }
+        });
+      },6000);
+      setTimeout(function(){
+        d3.json(trend_data[2], function(collection) {
+          
+          //  create a d3.geo.path to convert GeoJSON to SVG
+          var transform = d3.geo.transform({point: projectPoint}),
+                    path = d3.geo.path().projection(transform);
+         
+          // create path elements for each of the features
+          d3_features = g4.selectAll("path")
+           .data(collection.features)
+           .enter().append("path");
+
+          map.on("viewreset", reset);
+
+          reset();
+
+          // fit the SVG element to leaflet's map layer
+          function reset() {
+                
+           bounds = path.bounds(collection);
+
+           var topLeft = bounds[0],
+            bottomRight = bounds[1];
+
+           svg4.attr("width", bottomRight[0] - topLeft[0])
+            .attr("height", bottomRight[1] - topLeft[1])
+            .style("left", topLeft[0] + "px")
+            .style("top", topLeft[1] + "px");
+
+           g4.attr("transform", "translate(" + -topLeft[0] + "," 
+                                             + -topLeft[1] + ")");
+
+           // initialize the path data 
+           d3_features.attr("d", path)
+            .style("stroke", "red")
+            .attr("stroke-width", 3)
+            .attr('fill','none');
+          } 
+
+          // Use Leaflet to implement a D3 geometric transformation.
+          function projectPoint(x, y) {
+           var point = map.latLngToLayerPoint(new L.LatLng(y, x));
+           this.stream.point(point.x, point.y);
+          }
+        });
+      },9000);          
+      setTimeout(function(){
+        svg3.selectAll("*").remove();
+      },9000);
+      setTimeout(function(){
+        svg2.selectAll("*").remove();
+      },12000);
+      setTimeout(function(){
+        svg4.selectAll("*").remove();
+        console.log("I am here.");
+      },15000);
+  }
