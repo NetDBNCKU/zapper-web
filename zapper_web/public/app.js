@@ -46,7 +46,7 @@
       }
 
     });
-    var radius = 5;
+    var radius = 25;
 
     var feature = g.selectAll("circle")
       .data(collection)
@@ -85,11 +85,11 @@
         //.attr("stroke-width", 20)
         .attr("r", function(d) {
           if (d.u_or_d == "up")
-            return 10;
+            return 35;
           else if (d.u_or_d == "down")
-            return 1;
+            return 15;
           else
-            return 7;
+            return 25;
         })
         .ease('sine');
     }
@@ -103,7 +103,7 @@
           .duration(1000)
           //.attr("stroke-width", 20)
           .attr("r", function(d) {
-            return Math.floor((Math.random() * 20) + 1) })
+            return Math.floor((Math.random() * 20) + 15) })
           .ease('sine');
       }, 3000);
     }
