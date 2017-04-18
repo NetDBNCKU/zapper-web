@@ -56,7 +56,7 @@
       .style("opacity", .6)
       .style("fill", function(d) {
         return d.color })
-      .attr("stroke-width", 20)
+      //.attr("stroke-width", 20)
       .attr("r", radius)
       .attr('id', function(d) {
         return "z" + d.zapper_id })
@@ -82,7 +82,7 @@
       var circle = d3.select(this);
       circle = circle.transition()
         .duration(1000)
-        .attr("stroke-width", 20)
+        //.attr("stroke-width", 20)
         .attr("r", function(d) {
           if (d.u_or_d == "up")
             return 10;
@@ -101,13 +101,12 @@
         var circle = d3.selectAll("circle");
         circle = circle.transition()
           .duration(1000)
-          .attr("stroke-width", 20)
+          //.attr("stroke-width", 20)
           .attr("r", function(d) {
             return Math.floor((Math.random() * 20) + 1) })
           .ease('sine');
       }, 3000);
     }
-
   });
 
   var svg2 = d3.select(map.getPanes().overlayPane).append("svg"),
@@ -116,6 +115,7 @@
     g3 = svg3.append("g").attr("class", "leaflet-zoom-hide");
   var svg4 = d3.select(map.getPanes().overlayPane).append("svg"),
     g4 = svg4.append("g").attr("class", "leaflet-zoom-hide");
+  
   var trend_data = ['trend_data_0.json', 'trend_data_1.json', 'trend_data_2.json'];
 
   repeat_trend();
