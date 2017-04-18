@@ -6,6 +6,8 @@
   ];
   var currentEventNum = 0;
   var MAX_EVENT_NUM = 50;
+  var eventItems = [];
+
   L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
     maxZoom: 18,
@@ -52,14 +54,17 @@
       .data(collection)
       .enter().append("circle")
       .style("stroke", function(d) {
-        return d.color })
+        return d.color
+      })
       .style("opacity", .6)
       .style("fill", function(d) {
-        return d.color })
+        return d.color
+      })
       .attr("stroke-width", 20)
       .attr("r", radius)
       .attr('id', function(d) {
-        return "z" + d.zapper_id })
+        return "z" + d.zapper_id
+      })
       .each(pulse);
 
     map.on("viewreset", update);
@@ -103,7 +108,8 @@
           .duration(1000)
           .attr("stroke-width", 20)
           .attr("r", function(d) {
-            return Math.floor((Math.random() * 20) + 1) })
+            return Math.floor((Math.random() * 20) + 1)
+          })
           .ease('sine');
       }, 3000);
     }
@@ -130,13 +136,10 @@
   }, 16000);
 
   function repeat_trend() {
+    var eventIndex = 0;
     setTimeout(function() {
       d3.json(trend_data[0], function(collection) {
         var idCounter = 1;
-        var eventIndex = 0;
-        var fakeTimes = [];
-        for (var i = 0; i < collection.features.length; i++)
-          fakeTimes.push(Math.floor(Math.random() * 200));
 
         currentEventNum += collection.features.length;
         if (currentEventNum > MAX_EVENT_NUM) {
@@ -144,18 +147,10 @@
           currentEventNum = 0;
         }
 
-        fakeTimes.sort(function(a, b) {
-          return b - a;
-        });
-
         var events = collection.features.slice();
         events.forEach(function(event) {
-          var fakeIds = [];
-          for (var i = 0; i < 3; i++) {
-            fakeIds.push('id ' + idCounter);
-            idCounter++;
-          }
-          addEventListItem(fakeIds, fakeTimes[eventIndex], EVENT_COLOR_HEX[eventIndex > 5 ? 5 : eventIndex]);
+          var id = event.properties.id
+          addEventListItem(id, '', EVENT_COLOR_HEX[eventIndex > 5 ? 5 : eventIndex]);
           eventIndex++;
         });
         //  create a d3.geo.path to convert GeoJSON to SVG
@@ -203,10 +198,7 @@
     setTimeout(function() {
       d3.json(trend_data[1], function(collection) {
         var idCounter = 1;
-        var eventIndex = 0;
-        var fakeTimes = [];
-        for (var i = 0; i < collection.features.length; i++)
-          fakeTimes.push(Math.floor(Math.random() * 200));
+
 
         currentEventNum += collection.features.length;
         if (currentEventNum > MAX_EVENT_NUM) {
@@ -214,18 +206,11 @@
           currentEventNum = 0;
         }
 
-        fakeTimes.sort(function(a, b) {
-          return b - a;
-        });
-
         var events = collection.features.slice();
         events.forEach(function(event) {
-          var fakeIds = [];
-          for (var i = 0; i < 3; i++) {
-            fakeIds.push('id ' + idCounter);
-            idCounter++;
-          }
-          addEventListItem(fakeIds, fakeTimes[eventIndex], EVENT_COLOR_HEX[eventIndex > 5 ? 5 : eventIndex]);
+          var id = event.properties.id
+
+          addEventListItem(id, '', EVENT_COLOR_HEX[eventIndex > 5 ? 5 : eventIndex]);
           eventIndex++;
         });
         //  create a d3.geo.path to convert GeoJSON to SVG
@@ -273,10 +258,7 @@
     setTimeout(function() {
       d3.json(trend_data[2], function(collection) {
         var idCounter = 1;
-        var eventIndex = 0;
-        var fakeTimes = [];
-        for (var i = 0; i < collection.features.length; i++)
-          fakeTimes.push(Math.floor(Math.random() * 200));
+
 
         currentEventNum += collection.features.length;
         if (currentEventNum > MAX_EVENT_NUM) {
@@ -284,18 +266,10 @@
           currentEventNum = 0;
         }
 
-        fakeTimes.sort(function(a, b) {
-          return b - a;
-        });
-
         var events = collection.features.slice();
         events.forEach(function(event) {
-          var fakeIds = [];
-          for (var i = 0; i < 3; i++) {
-            fakeIds.push('id ' + idCounter);
-            idCounter++;
-          }
-          addEventListItem(fakeIds, fakeTimes[eventIndex], EVENT_COLOR_HEX[eventIndex > 5 ? 5 : eventIndex]);
+          var id = event.properties.id;
+          addEventListItem(id);
           eventIndex++;
         });
 
@@ -352,7 +326,22 @@
     }, 15000);
   }
 
-  function addEventListItem(zapperIds, times, colorHex) {
-    var html = '<li style="background-color:' + colorHex + '">(' + zapperIds[0] + ', ' + zapperIds[1] + ' ,' + zapperIds[2] + '), ' + times + ' times</li>';
-    $('#list ol').append(html);
+  function addEventListItem(zapperId) {
+    var colorHex;
+    if ((zapperId+1) > eventItems.length || eventItems.length===0) {
+      console.log('push',zapperId, eventItems)
+      colorHex = EVENT_COLOR_HEX[5];
+      var html = '<li style="background-color:' + colorHex + '"> no.' + zapperId + ' event, 1 times</li>';
+      var item = $(html);
+      $('#list ol').prepend(item);
+      eventItems.push({ tag: item, time: 1 });
+    } else {
+      console.log('repalce',zapperId, eventItems)
+      colorHex = EVENT_COLOR_HEX[(5-Math.floor((eventItems[zapperId].time/1)))<0?0:(5-Math.floor((eventItems[zapperId].time/1)))];
+      var html = '<li style="background-color:' + colorHex + '">no.' + zapperId + ' event, ' + (eventItems[zapperId].time+1) + ' times</li>';
+      eventItems[zapperId].tag.remove();
+      var item = $(html);
+      $('#list ol').prepend(item);
+      eventItems[zapperId] = { tag: item, time: eventItems[zapperId].time + 1 };
+    }
   }
