@@ -329,19 +329,44 @@
   function addEventListItem(zapperId) {
     var colorHex;
     if ((zapperId+1) > eventItems.length || eventItems.length===0) {
-      console.log('push',zapperId, eventItems)
+      // console.log('push',zapperId, eventItems)
       colorHex = EVENT_COLOR_HEX[5];
       var html = '<li style="background-color:' + colorHex + '"> no.' + zapperId + ' event, 1 times</li>';
       var item = $(html);
+      // item.data('id',zapperId).data('time', 1);
       $('#list ol').prepend(item);
       eventItems.push({ tag: item, time: 1 });
     } else {
-      console.log('repalce',zapperId, eventItems)
+      // console.log('repalce',zapperId, eventItems)
       colorHex = EVENT_COLOR_HEX[(5-Math.floor((eventItems[zapperId].time/1)))<0?0:(5-Math.floor((eventItems[zapperId].time/1)))];
       var html = '<li style="background-color:' + colorHex + '">no.' + zapperId + ' event, ' + (eventItems[zapperId].time+1) + ' times</li>';
-      eventItems[zapperId].tag.remove();
-      var item = $(html);
-      $('#list ol').prepend(item);
+      var item = $(html).css('top',eventItems[zapperId].tag.css('top'));
+      // item.data('id',zapperId).data('time', eventItems[zapperId].time+1);
+      eventItems[zapperId].tag.after(item);
+      eventItems[zapperId].tag.fadeOut().remove();
       eventItems[zapperId] = { tag: item, time: eventItems[zapperId].time + 1 };
     }
+    sortlist();
+  }
+
+  function sortlist(){
+    var seq = [];
+    eventItems.forEach(function(d, i){
+      var dom = d.tag;
+      var time = d.time;
+      var id = i;
+      seq.push([i, time]);
+    });
+
+    seq.sort(function(a,b){
+      if( a[1] === b[1] )
+        return b[0]- a[0]
+      else
+        return b[1] - a[1];
+    });
+
+    seq.forEach(function(d, i){
+      console.log(eventItems[d[0]].tag)
+      eventItems[d[0]].tag.css('top',(i*50+12)+'px');
+    })
   }

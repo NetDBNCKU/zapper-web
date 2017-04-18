@@ -55,15 +55,18 @@ html {
   overflow: scroll;
   margin: 0;
   padding: 0;
+  position: relative;
 }
 
 #list li {
 	list-style: none;
+  position: absolute;
 	/*border: 1px solid white;*/
 	border-radius: 5px;
 	background: rgba(255, 255, 255, 0.5);
 	padding: 8px 12px;
-	margin: 12px 0;
+  transition: 0.75s;
+	/*margin: 12px 0;*/
 }
 
 @media only screen and (max-width: 960px) {
