@@ -13,10 +13,10 @@
 {"zapper_id":"12","lng":22.997198,"lat":120.221310,"u_or_d":"up","percentage":0.01,"status":1},
 {"zapper_id":"13","lng":22.995386,"lat":120.216447,"u_or_d":"down","percentage":0.01,"status":1},
 {"zapper_id":"14","lng":22.978919,"lat":120.228703,"u_or_d":"up","percentage":0.01,"status":2},
-{"zapper_id":"13","lng":22.986209,"lat":120.183219,"u_or_d":"down","percentage":0.01,"status":1},
-{"zapper_id":"13","lng":22.980520,"lat":120.185451,"u_or_d":"down","percentage":0.01,"status":2},
-{"zapper_id":"13","lng":22.939108,"lat":120.204334,"u_or_d":"up","percentage":0.01,"status":5},
-{"zapper_id":"13","lng":22.954283,"lat":120.248966,"u_or_d":"up","percentage":0.01,"status":2},
-{"zapper_id":"13","lng":22.951754,"lat":120.243473,"u_or_d":"up","percentage":0.01,"status":1},
-{"zapper_id":"13","lng":22.947802,"lat":120.250339,"u_or_d":"up","percentage":0.01,"status":1}
+{"zapper_id":"15","lng":22.986209,"lat":120.183219,"u_or_d":"down","percentage":0.01,"status":1},
+{"zapper_id":"16","lng":22.980520,"lat":120.185451,"u_or_d":"down","percentage":0.01,"status":2},
+{"zapper_id":"17","lng":22.939108,"lat":120.204334,"u_or_d":"up","percentage":0.01,"status":5},
+{"zapper_id":"18","lng":22.954283,"lat":120.248966,"u_or_d":"up","percentage":0.01,"status":2},
+{"zapper_id":"19","lng":22.951754,"lat":120.243473,"u_or_d":"up","percentage":0.01,"status":1},
+{"zapper_id":"20","lng":22.947802,"lat":120.250339,"u_or_d":"up","percentage":0.01,"status":1}
 ]
