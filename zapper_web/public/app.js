@@ -350,7 +350,7 @@
       colorHex = EVENT_COLOR_HEX[infoNum];
       console.log('hi',infoNum)
       //var html = '<li style="background-color:' + colorHex + '">no.' + zapperId + ' event, ' + (eventItems[zapperId].time+1) + ' times</li>';
-      var html = '<li style="background-color:' + colorHex + '"> ' + zapperName[zapperId] + '里，' + zapperRange[zapperId] + '公尺範圍於' + zapperInfo[infoNum] + ' </li>';
+      var html = '<li style="background-color:' + colorHex + '"> ' + zapperName[zapperId] + '里，' + zapperRange[zapperId] + '公里範圍於' + zapperInfo[infoNum] + ' </li>';
       var item = $(html).css('top',eventItems[zapperId].tag.css('top'));
       // item.data('id',zapperId).data('time', eventItems[zapperId].time+1);
       eventItems[zapperId].tag.after(item);
