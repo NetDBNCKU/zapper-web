@@ -328,18 +328,27 @@
 
   function addEventListItem(zapperId) {
     var colorHex;
+    var zapperName = ["大學","虎尾","六甲","仁愛","億載"];
+    var zapperRange = ["10","5","7","10","7"];
+    var zapperInfo = ["5日內，蚊媒指數上升2倍，輕微風險","3日內，蚊媒指數上升5倍，警戒風險","5日內，蚊媒指數上升10倍，高度風險"];
+
+
     if ((zapperId+1) > eventItems.length || eventItems.length===0) {
       // console.log('push',zapperId, eventItems)
+      var infoNum = Math.floor((Math.random() * 3))
       colorHex = EVENT_COLOR_HEX[5];
-      var html = '<li style="background-color:' + colorHex + '"> no.' + zapperId + ' event, 1 times</li>';
+      //var html = '<li style="background-color:' + colorHex + '"> no.' + zapperId + ' event, 1 times</li>';
+      var html = '<li style="background-color:' + colorHex + '"> ' + zapperName[zapperId] + '里，' + zapperRange[zapperId] + '公里範圍於' + zapperInfo[infoNum] + ' </li>';
       var item = $(html);
       // item.data('id',zapperId).data('time', 1);
       $('#list ol').prepend(item);
       eventItems.push({ tag: item, time: 1 });
     } else {
       // console.log('repalce',zapperId, eventItems)
+      var infoNum = Math.floor((Math.random() * 3))
       colorHex = EVENT_COLOR_HEX[(5-Math.floor((eventItems[zapperId].time/1)))<0?0:(5-Math.floor((eventItems[zapperId].time/1)))];
-      var html = '<li style="background-color:' + colorHex + '">no.' + zapperId + ' event, ' + (eventItems[zapperId].time+1) + ' times</li>';
+      //var html = '<li style="background-color:' + colorHex + '">no.' + zapperId + ' event, ' + (eventItems[zapperId].time+1) + ' times</li>';
+      var html = '<li style="background-color:' + colorHex + '"> ' + zapperName[zapperId] + '里，' + zapperRange[zapperId] + '公尺範圍於' + zapperInfo[infoNum] + ' </li>';
       var item = $(html).css('top',eventItems[zapperId].tag.css('top'));
       // item.data('id',zapperId).data('time', eventItems[zapperId].time+1);
       eventItems[zapperId].tag.after(item);
