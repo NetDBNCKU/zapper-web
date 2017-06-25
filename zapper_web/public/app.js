@@ -1,12 +1,13 @@
   var map = L.map('map').setView([22.969919, 120.210703], 13);
   mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
 
-  var EVENT_COLOR_HEX = ['#BD3F32', 'rgba(203, 87, 75, 0.85)', 'rgba(203, 87, 75, 0.7)',
-    'rgba(203, 87, 75, 0.55)', 'rgba(203, 87, 75, 0.4)', 'rgba(203, 87, 75, 0.25)'
-  ];
+  var EVENT_COLOR_HEX = ['#c0a09c','#c07167','#BD3F32'];
   var currentEventNum = 0;
   var MAX_EVENT_NUM = 50;
   var eventItems = [];
+
+  var LI_DIST = 68;
+  var LI_PADDING = 12;
 
   L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
@@ -336,7 +337,7 @@
     if ((zapperId+1) > eventItems.length || eventItems.length===0) {
       // console.log('push',zapperId, eventItems)
       var infoNum = Math.floor((Math.random() * 3))
-      colorHex = EVENT_COLOR_HEX[5];
+      colorHex = EVENT_COLOR_HEX[infoNum];
       //var html = '<li style="background-color:' + colorHex + '"> no.' + zapperId + ' event, 1 times</li>';
       var html = '<li style="background-color:' + colorHex + '"> ' + zapperName[zapperId] + '里，' + zapperRange[zapperId] + '公里範圍於' + zapperInfo[infoNum] + ' </li>';
       var item = $(html);
@@ -346,7 +347,8 @@
     } else {
       // console.log('repalce',zapperId, eventItems)
       var infoNum = Math.floor((Math.random() * 3))
-      colorHex = EVENT_COLOR_HEX[(5-Math.floor((eventItems[zapperId].time/1)))<0?0:(5-Math.floor((eventItems[zapperId].time/1)))];
+      colorHex = EVENT_COLOR_HEX[infoNum];
+      console.log('hi',infoNum)
       //var html = '<li style="background-color:' + colorHex + '">no.' + zapperId + ' event, ' + (eventItems[zapperId].time+1) + ' times</li>';
       var html = '<li style="background-color:' + colorHex + '"> ' + zapperName[zapperId] + '里，' + zapperRange[zapperId] + '公尺範圍於' + zapperInfo[infoNum] + ' </li>';
       var item = $(html).css('top',eventItems[zapperId].tag.css('top'));
@@ -376,6 +378,6 @@
 
     seq.forEach(function(d, i){
       console.log(eventItems[d[0]].tag)
-      eventItems[d[0]].tag.css('top',(i*50+12)+'px');
+      eventItems[d[0]].tag.css('top',(i*LI_DIST+LI_PADDING)+'px');
     })
   }
