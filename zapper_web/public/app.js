@@ -49,19 +49,19 @@
       }
 
     });
-    var radius = 5;
+    var radius = 15;
 
     var feature = g.selectAll("circle")
       .data(collection)
       .enter().append("circle")
-      .style("stroke", function(d) {
-        return d.color
-      })
+      //.style("stroke", function(d) {
+      //  return d.color
+      //})
       .style("opacity", .6)
       .style("fill", function(d) {
         return d.color
       })
-      .attr("stroke-width", 20)
+      //.attr("stroke-width", 20)
       .attr("r", radius)
       .attr('id', function(d) {
         return "z" + d.zapper_id
@@ -88,14 +88,14 @@
       var circle = d3.select(this);
       circle = circle.transition()
         .duration(1000)
-        .attr("stroke-width", 20)
+        //.attr("stroke-width", 20)
         .attr("r", function(d) {
           if (d.u_or_d == "up")
-            return 10;
+            return 30;
           else if (d.u_or_d == "down")
-            return 1;
+            return 15;
           else
-            return 7;
+            return 25;
         })
         .ease('sine');
     }
@@ -107,9 +107,9 @@
         var circle = d3.selectAll("circle");
         circle = circle.transition()
           .duration(1000)
-          .attr("stroke-width", 20)
+          //.attr("stroke-width", 20)
           .attr("r", function(d) {
-            return Math.floor((Math.random() * 20) + 1)
+            return Math.floor((Math.random() * 20) + 11)
           })
           .ease('sine');
       }, 3000);
